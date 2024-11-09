@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var expression = ""
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let operators = ["÷", "X", "-", "+", "="]
+    let others = ["C", "+/-", "%"]
     let buttons = ["C", "+/-", "%", "÷", "7", "8", "9", "X", "4", "5", "6", "-", "1", "2", "3", "+"]
     
     var body: some View {
@@ -25,19 +28,35 @@ struct ContentView: View {
                     Text(expression)
                         .font(.system(size: 30, weight: .bold))
                 }
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 4), alignment: .leading, spacing: spacing) {
-                    ForEach(buttons, id: \.self) { i in
-                        Text("\(i)")
-                            .frame(width: side,
-                                   height: side)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                expression.append(i)
+                
+                HStack {
+                    VStack(spacing: spacing) {
+                        HStack(spacing: spacing) {
+                            ForEach(others, id: \.self) { i in
+                                Text("\(i)")
+                                    .frame(width: side,
+                                           height: side)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        expression.append("\(i)")
+                                    }
+                                    .border(.red)
                             }
-                            .border(.red)
-                    }
-                    
-                    GridRow {
+                        }
+                        
+                        LazyVGrid(columns: Array(repeating: GridItem(.fixed(side), spacing: spacing), count: 3), alignment: .leading, spacing: spacing) {
+                            ForEach(numbers, id: \.self) { i in
+                                Text("\(i)")
+                                    .frame(width: side,
+                                           height: side)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        expression.append(i)
+                                    }
+                                    .border(.red)
+                            }
+                        }
+                        
                         HStack(spacing: spacing) {
                             Text("0")
                                 .frame(width: (geometry.size.width / 2) - padding - spacing,
@@ -55,12 +74,17 @@ struct ContentView: View {
                                     expression.append(".")
                                 }
                                 .border(.red)
-                            Text("=")
+                        }
+                    }
+                    
+                    VStack(spacing: spacing) {
+                        ForEach(operators, id: \.self) { i in
+                            Text("\(i)")
                                 .frame(width: side,
                                        height: side)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
-                                    expression.append("=")
+                                    expression.append(i)
                                 }
                                 .border(.red)
                         }
