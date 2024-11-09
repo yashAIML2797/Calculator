@@ -13,6 +13,11 @@ struct ContentView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            let padding = geometry.size.width * 0.05
+            let spacing = geometry.size.width * 0.025
+            let availableSize = geometry.size.width - (padding * 2) - (spacing * 3)
+            let side = (availableSize / 4)
+            
             VStack {
                 Spacer()
                 HStack(spacing: 0) {
@@ -20,39 +25,39 @@ struct ContentView: View {
                     Text(expression)
                         .font(.system(size: 30, weight: .bold))
                 }
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 4), alignment: .leading, spacing: 0) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 4), alignment: .leading, spacing: spacing) {
                     ForEach(buttons, id: \.self) { i in
                         Text("\(i)")
-                            .frame(width: geometry.size.width / (i == "0" ? 2 : 4),
-                                   height: geometry.size.width / 4)
+                            .frame(width: side,
+                                   height: side)
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 expression.append(i)
                             }
-                            .border(i == "" ? .clear : .red)
+                            .border(.red)
                     }
                     
                     GridRow {
-                        HStack(spacing: 0) {
+                        HStack(spacing: spacing) {
                             Text("0")
-                                .frame(width: geometry.size.width / 2,
-                                       height: geometry.size.width / 4)
+                                .frame(width: (geometry.size.width / 2) - padding - spacing,
+                                       height: side)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     expression.append("0")
                                 }
                                 .border(.red)
                             Text(".")
-                                .frame(width: geometry.size.width / 4,
-                                       height: geometry.size.width / 4)
+                                .frame(width: side,
+                                       height: side)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     expression.append(".")
                                 }
                                 .border(.red)
                             Text("=")
-                                .frame(width: geometry.size.width / 4,
-                                       height: geometry.size.width / 4)
+                                .frame(width: side,
+                                       height: side)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     expression.append("=")
@@ -62,6 +67,8 @@ struct ContentView: View {
                     }
                 }
             }
+            .padding(.horizontal, padding)
+            .padding(.bottom, padding)
         }
     }
 }
