@@ -13,6 +13,7 @@ struct ButtonView: View {
     var label: String
     var width: CGFloat
     var height: CGFloat
+    var textColor: Color
     var color1: Color
     var color2: Color
     var action: () -> Void
@@ -26,6 +27,11 @@ struct ButtonView: View {
                 .shadow(.inner(color: color1, radius: 3, x: 3, y: 3))
                 .shadow(.inner(color: color2, radius: 3, x: -3, y: -3))
             )
+            .overlay {
+                Text(label)
+                    .font(.system(size: 25, weight: .medium))
+                    .foregroundStyle(textColor)
+            }
             .frame(width: width,
                    height: height)
             .contentShape(Rectangle())
@@ -46,5 +52,5 @@ struct ButtonView: View {
 }
 
 #Preview {
-    ButtonView(label: "0", width: 0, height: 0, color1: Color("Orange"), color2: Color("Orange.Shadow"), action: {})
+    ButtonView(label: "0", width: 0, height: 0, textColor: .black, color1: Color("Orange"), color2: Color("Orange.Shadow"), action: {})
 }

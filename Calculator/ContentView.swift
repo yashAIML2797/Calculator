@@ -34,8 +34,9 @@ struct ContentView: View {
                         HStack(spacing: spacing) {
                             ForEach(others, id: \.self) { i in
                                 ButtonView(label: "\(i)", width: side, height: side,
-                                           color1: Color("Orange"),
-                                           color2: Color("Orange.Shadow")) {
+                                           textColor: .black,
+                                           color1: Color("LightGray"),
+                                           color2: Color("LightGray.Shadow")) {
                                     expression.append("\(i)")
                                 }
                             }
@@ -44,8 +45,9 @@ struct ContentView: View {
                         LazyVGrid(columns: Array(repeating: GridItem(.fixed(side), spacing: spacing), count: 3), alignment: .leading, spacing: spacing) {
                             ForEach(numbers, id: \.self) { i in
                                 ButtonView(label: "\(i)", width: side, height: side,
-                                           color1: Color("Orange"),
-                                           color2: Color("Orange.Shadow")) {
+                                           textColor: Color("TextDark"),
+                                           color1: Color("White"),
+                                           color2: Color("White.Shadow")) {
                                     expression.append("\(i)")
                                 }
                             }
@@ -55,13 +57,15 @@ struct ContentView: View {
                             ButtonView(label: "0",
                                        width: (geometry.size.width / 2) - padding - spacing,
                                        height: side,
-                                       color1: Color("Orange"),
-                                       color2: Color("Orange.Shadow")) {
+                                       textColor: Color("TextDark"),
+                                       color1: Color("White"),
+                                       color2: Color("White.Shadow")) {
                                 expression.append("0")
                             }
                             ButtonView(label: ".", width: side, height: side,
-                                       color1: Color("Orange"),
-                                       color2: Color("Orange.Shadow")) {
+                                       textColor: Color("TextDark"),
+                                       color1: Color("White"),
+                                       color2: Color("White.Shadow")) {
                                 expression.append(".")
                             }
                         }
@@ -70,6 +74,7 @@ struct ContentView: View {
                     VStack(spacing: spacing) {
                         ForEach(operators, id: \.self) { i in
                             ButtonView(label: "\(i)", width: side, height: side,
+                                       textColor: .white,
                                        color1: Color("Orange"),
                                        color2: Color("Orange.Shadow")) {
                                 expression.append("\(i)")
