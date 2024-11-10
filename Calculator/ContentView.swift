@@ -33,60 +33,47 @@ struct ContentView: View {
                     VStack(spacing: spacing) {
                         HStack(spacing: spacing) {
                             ForEach(others, id: \.self) { i in
-                                Text("\(i)")
-                                    .frame(width: side,
-                                           height: side)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        expression.append("\(i)")
-                                    }
-                                    .border(.red)
+                                ButtonView(label: "\(i)", width: side, height: side,
+                                           color1: Color("Orange"),
+                                           color2: Color("Orange.Shadow")) {
+                                    expression.append("\(i)")
+                                }
                             }
                         }
                         
                         LazyVGrid(columns: Array(repeating: GridItem(.fixed(side), spacing: spacing), count: 3), alignment: .leading, spacing: spacing) {
                             ForEach(numbers, id: \.self) { i in
-                                Text("\(i)")
-                                    .frame(width: side,
-                                           height: side)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        expression.append(i)
-                                    }
-                                    .border(.red)
+                                ButtonView(label: "\(i)", width: side, height: side,
+                                           color1: Color("Orange"),
+                                           color2: Color("Orange.Shadow")) {
+                                    expression.append("\(i)")
+                                }
                             }
                         }
                         
                         HStack(spacing: spacing) {
-                            Text("0")
-                                .frame(width: (geometry.size.width / 2) - padding - spacing,
-                                       height: side)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    expression.append("0")
-                                }
-                                .border(.red)
-                            Text(".")
-                                .frame(width: side,
-                                       height: side)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    expression.append(".")
-                                }
-                                .border(.red)
+                            ButtonView(label: "0",
+                                       width: (geometry.size.width / 2) - padding - spacing,
+                                       height: side,
+                                       color1: Color("Orange"),
+                                       color2: Color("Orange.Shadow")) {
+                                expression.append("0")
+                            }
+                            ButtonView(label: ".", width: side, height: side,
+                                       color1: Color("Orange"),
+                                       color2: Color("Orange.Shadow")) {
+                                expression.append(".")
+                            }
                         }
                     }
                     
                     VStack(spacing: spacing) {
                         ForEach(operators, id: \.self) { i in
-                            Text("\(i)")
-                                .frame(width: side,
-                                       height: side)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    expression.append(i)
-                                }
-                                .border(.red)
+                            ButtonView(label: "\(i)", width: side, height: side,
+                                       color1: Color("Orange"),
+                                       color2: Color("Orange.Shadow")) {
+                                expression.append("\(i)")
+                            }
                         }
                     }
                 }
