@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var expression = ""
     let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     let operators = ["÷", "X", "-", "+", "="]
@@ -34,7 +36,7 @@ struct ContentView: View {
                         HStack(spacing: spacing) {
                             ForEach(others, id: \.self) { i in
                                 ButtonView(label: "\(i)", width: side, height: side,
-                                           textColor: .black,
+                                           textColor: colorScheme == .dark ? Color("TextLight") : .black,
                                            color1: Color("LightGray"),
                                            color2: Color("LightGray.Shadow")) {
                                     expression.append("\(i)")
@@ -45,7 +47,7 @@ struct ContentView: View {
                         LazyVGrid(columns: Array(repeating: GridItem(.fixed(side), spacing: spacing), count: 3), alignment: .leading, spacing: spacing) {
                             ForEach(numbers, id: \.self) { i in
                                 ButtonView(label: "\(i)", width: side, height: side,
-                                           textColor: Color("TextDark"),
+                                           textColor: colorScheme == .dark ? Color("TextLight") : Color("TextDark"),
                                            color1: Color("White"),
                                            color2: Color("White.Shadow")) {
                                     expression.append("\(i)")
@@ -57,13 +59,13 @@ struct ContentView: View {
                             ButtonView(label: "0",
                                        width: (geometry.size.width / 2) - padding - spacing,
                                        height: side,
-                                       textColor: Color("TextDark"),
+                                       textColor: colorScheme == .dark ? Color("TextLight") : Color("TextDark"),
                                        color1: Color("White"),
                                        color2: Color("White.Shadow")) {
                                 expression.append("0")
                             }
                             ButtonView(label: ".", width: side, height: side,
-                                       textColor: Color("TextDark"),
+                                       textColor: colorScheme == .dark ? Color("TextLight") : Color("TextDark"),
                                        color1: Color("White"),
                                        color2: Color("White.Shadow")) {
                                 expression.append(".")
